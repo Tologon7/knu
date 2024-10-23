@@ -1,13 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+
+
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КНУ имени Жусупа Баласагына</title>
+    <link rel="stylesheet" href="{% static 'blog/css/index.css' %}">
 </head>
 <body>
-    <h1>
-        Это сайт для КНУ 6а корпуса, можете посмотреть, но пока тут ничего не готово :)
-    </h1>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">
+            <h1>КНУ имени Жусупа Баласагына</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="faculties.html">Факультеты</a></li>
+                <li><a href="admissions.html">Абитуриентам</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <!-- Основное содержание -->
+    <main>
+        <h2>Добро пожаловать в КНУ!</h2>
+        <p>Краткая информация о КНУ и его достижениях.</p>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2024 КНУ имени Жусупа Баласагына. Все права защищены.</p>
+    </footer>
 </body>
 </html>
