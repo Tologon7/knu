@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Список групп{% endblock %}
+
+{% block content %}
+    <h1>Список групп</h1>
+    <ul>
+        {% for group in groups %}
+            <li><a href="{% url 'group_detail' group.pk %}">{{ group.group_name }}</a></li>
+        {% empty %}
+            <li>Группы не найдены.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

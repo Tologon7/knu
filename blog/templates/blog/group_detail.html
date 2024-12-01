@@ -1,0 +1,27 @@
+<!-- blog/templates/blog/group_detail.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block title %}Расписание группы {{ group.group_name }}{% endblock %}
+
+{% block content %}
+    <h1>Расписание для группы {{ group.group_name }}</h1>
+    <p>Количество студентов: {{ group.student_quantity }}</p>
+
+    {% for week in weeks %}
+        <div class="week">
+            <h2>{{ week.day_name }}</h2>
+
+            {% for lesson in week.lessons.all %}
+                <div class="lesson">
+                    <p><strong>Урок:</strong> {{ lesson.lesson_name }}</p>
+                    <p><strong>Преподаватель:</strong> {{ lesson.teacher }}</p>
+                    <p><strong>Время:</strong> {{ lesson.oclock }}</p>
+                    <p><strong>Аудитория:</strong> {{ lesson.audience }}</p>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+        <hr>  <!-- Разделитель между днями недели -->
+    {% endfor %}
+{% endblock %}
