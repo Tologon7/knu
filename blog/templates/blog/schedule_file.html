@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Управление файлом расписания{% endblock %}
+
+{% block content %}
+    <h1>Управление файлом расписания</h1>
+
+    {% if schedule_file %}
+        <p>Текущий файл: <a href="{{ schedule_file.file.url }}" target="_blank">Скачать</a></p>
+        <p>Последнее обновление: {{ schedule_file.updated_at }}</p>
+    {% else %}
+        <p>Файл не загружен.</p>
+    {% endif %}
+
+    <h2>Загрузить новый файл</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Загрузить</button>
+    </form>
+{% endblock %}

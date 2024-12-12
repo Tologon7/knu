@@ -1,14 +1,18 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}Список групп{% endblock %}
+{% block title %}Расписание для группы {{ group.group_name }}{% endblock %}
 
 {% block content %}
-    <h1>Список групп</h1>
-    <ul>
-        {% for group in groups %}
-            <li><a href="{% url 'group_detail' group.pk %}">{{ group.group_name }}</a></li>
-        {% empty %}
-            <li>Группы не найдены.</li>
-        {% endfor %}
-    </ul>
+    <h1>Расписание для группы {{ group.group_name }}</h1>
+    <p>Количество студентов: {{ group.student_quantity }}</p>
+
+    {% if schedule_file %}
+        <!-- Здесь автоматически откроется файл, если он существует -->
+        <h3>Расписание для группы:</h3>
+        <iframe src="{{ schedule_file.file.url }}" width="100%" height="600px">
+            Ваш браузер не поддерживает отображение файлов через iframe.
+        </iframe>
+    {% else %}
+        <p>Расписание не загружено.</p>
+    {% endif %}
 {% endblock %}
