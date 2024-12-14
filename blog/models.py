@@ -30,7 +30,7 @@ class Lesson(models.Model):
 
 
 class ScheduleFile(models.Model):
-    file = models.FileField(upload_to='schedules/')
+    c2b11 = models.FileField(upload_to='schedules/')
     c1b11 = models.FileField(upload_to='schedules/')
     c3b9 = models.FileField(upload_to='schedules/')
     c2b9 = models.FileField(upload_to='schedules/')

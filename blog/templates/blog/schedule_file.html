@@ -6,10 +6,30 @@
     <h1>Управление файлом расписания</h1>
 
     {% if schedule_file %}
-        <p>Текущий файл: <a href="{{ schedule_file.file.url }}" target="_blank">Скачать</a></p>
+        <p>Текущие файлы:</p>
+        <ul>
+            {% if schedule_file.c2b11 %}
+                <li>C2B11: <a href="{{ schedule_file.c2b11.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+            {% if schedule_file.c1b11 %}
+                <li>C1B11: <a href="{{ schedule_file.c1b11.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+            {% if schedule_file.c3b9 %}
+                <li>C3B9: <a href="{{ schedule_file.c3b9.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+            {% if schedule_file.c2b9 %}
+                <li>C2B9: <a href="{{ schedule_file.c2b9.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+            {% if schedule_file.c1b9 %}
+                <li>C1B9: <a href="{{ schedule_file.c1b9.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+            {% if schedule_file.it9 %}
+                <li>IT9: <a href="{{ schedule_file.it9.url }}" target="_blank">Открыть</a></li>
+            {% endif %}
+        </ul>
         <p>Последнее обновление: {{ schedule_file.updated_at }}</p>
     {% else %}
-        <p>Файл не загружен.</p>
+        <p>Файлы не загружены.</p>
     {% endif %}
 
     <h2>Загрузить новый файл</h2>

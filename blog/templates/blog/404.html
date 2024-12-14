@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Страница не найдена{% endblock %}
+
+{% block content %}
+    <div class="error-container">
+        <h1>404</h1>
+        <h2>Страница не найдена</h2>
+        <p>Извините, страница, которую вы ищете, не существует.</p>
+        <a href="{% url 'index' %}" class="btn-back">Вернуться на главную</a>
+    </div>
+{% endblock %}

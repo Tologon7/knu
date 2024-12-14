@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import View
 from django.http import FileResponse, HttpResponse
 import os
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import ScheduleFile
 from .forms import ScheduleFileForm
 
@@ -19,15 +19,36 @@ def about(request):
     return render(request, 'blog/about.html')
 
 
-def open_schedule_file(request):
-    # Попробуем получить последний загруженный файл из модели ScheduleFile
-    schedule_file = ScheduleFile.objects.latest('updated_at')
+def open_schedule_file(request, file_id):
+    # Получаем файл по ID
+    schedule_file = get_object_or_404(ScheduleFile, id=file_id)
 
-    if schedule_file:
-        # Если файл существует, направляем на URL файла
-        return redirect(schedule_file.file.url)
+    # Проверяем, существует ли файл для поля c1b11
+    if schedule_file.c1b11:
+        return redirect(schedule_file.c1b11.url)
     else:
-        return HttpResponse("Файл не найден", status=404)
+        # В случае отсутствия файла перенаправляем на другую страницу
+        return redirect('error_page')
+
+
+def list_schedules(request):
+    # Получаем последнюю запись
+    schedule_file = ScheduleFile.objects.last()
+
+    # Собираем данные для последнего объекта, чтобы передать их в шаблон
+    file_data = []
+    if schedule_file:
+        file_data.append({
+            'id': schedule_file.id,
+            'c2b11': schedule_file.c2b11.url if schedule_file.c2b11 else None,
+            'c1b11': schedule_file.c1b11.url if schedule_file.c1b11 else None,
+            'c3b9': schedule_file.c3b9.url if schedule_file.c3b9 else None,
+            'c2b9': schedule_file.c2b9.url if schedule_file.c2b9 else None,
+            'c1b9': schedule_file.c1b9.url if schedule_file.c1b9 else None,
+            'it9': schedule_file.it9.url if schedule_file.it9 else None,
+        })
+
+    return render(request, 'blog/groups.html', {'file_data': file_data})
 
 
 # class GroupsListView(View):
@@ -99,9 +120,19 @@ def schedule_file_view(request):
     if request.method == 'POST':
         form = ScheduleFileForm(request.POST, request.FILES)
         if form.is_valid():
-            # Если файл существует, удаляем старый
+            # Если файл существует, удаляем старый файл в соответствующем поле
             if schedule_file:
-                schedule_file.file.delete()
+                # Пример для удаления файла в поле c1b11
+                if schedule_file.c1b11:
+                    schedule_file.c1b11.delete()
+                # Аналогично для других полей:
+                if schedule_file.c2b11:
+                    schedule_file.c2b11.delete()
+                if schedule_file.c3b9:
+                    schedule_file.c3b9.delete()
+                # Добавьте проверки для других полей, если нужно
+
+            # Сохраняем новый файл
             form.save()
             return redirect('schedule_file')  # Перенаправляем на ту же страницу после успешной загрузки
     else:

@@ -1,18 +1,32 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}Расписание для группы {{ group.group_name }}{% endblock %}
+{% block title %}Список расписаний{% endblock %}
 
 {% block content %}
-    <h1>Расписание для группы {{ group.group_name }}</h1>
-    <p>Количество студентов: {{ group.student_quantity }}</p>
+    <h1>Список расписаний</h1>
 
-    {% if schedule_file %}
-        <!-- Здесь автоматически откроется файл, если он существует -->
-        <h3>Расписание для группы:</h3>
-        <iframe src="{{ schedule_file.file.url }}" width="100%" height="600px">
-            Ваш браузер не поддерживает отображение файлов через iframe.
-        </iframe>
-    {% else %}
-        <p>Расписание не загружено.</p>
-    {% endif %}
+    <ul>
+        {% for file in file_data %}
+           <h3> <ul>
+                {% if file.c2b11 %}
+                    <li><a href="{{ file.c2b11 }}" target="_blank">2-курс(на базе 11 класса)</a></li>
+                {% endif %}
+                {% if file.c1b11 %}
+                    <li><a href="{{ file.c1b11 }}" target="_blank">1-курс(на базе 11 класса)</a></li>
+                {% endif %}
+                {% if file.c3b9 %}
+                    <li><a href="{{ file.c3b9 }}" target="_blank">3-курс(на базе 9 класса)</a></li>
+                {% endif %}
+                {% if file.c2b9 %}
+                    <li><a href="{{ file.c2b9 }}" target="_blank">2-курс(на базе 9 класса)</a></li>
+                {% endif %}
+                {% if file.c1b9 %}
+                    <li><a href="{{ file.c1b9 }}" target="_blank">1-курс(на базе 9 класса)</a></li>
+                {% endif %}
+                {% if file.it9 %}
+                    <li><a href="{{ file.it9 }}" target="_blank">ИТ(на базе 9 класса)</a></li>
+                {% endif %}
+            </ul></h3>
+        {% endfor %}
+    </ul>
 {% endblock %}
