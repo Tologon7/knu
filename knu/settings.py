@@ -124,5 +124,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+cloudinary.config(
+    cloud_name="dgoahxt1s",
+    api_key="984495366641936",
+    api_secret="KIRErCu5qZLcPkxlWAnjNunr8P4"
+)
+
+# Используем Cloudinary для хранения медиафайлов
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Определите Media URL для получения доступа к файлам
+MEDIA_URL = '/media/'
